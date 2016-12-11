@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
+#include "process.c"
 
 #define MAX_HEAP_SIZE 1000
 #define PARENT(i) (i/2)     // given the index of a heap node, the returns the parent index
@@ -13,15 +14,15 @@
 #define SWAP(a, b, temp)  {temp=a; a=b; b=temp;}
 
 typedef struct {
-    void *a[MAX_HEAP_SIZE];
+    process *a[MAX_HEAP_SIZE];
     int size;
 } heap;
 
 void heap_init(heap *h);
-void heapify(heap *h, int (*comp_func)(void*, void*), int i);
-void build_heap(heap *h, int (*comp_func)(void*, void*));
-void* heap_extract_max(heap *h, int (*comp_func)(void*, void*));
-void heap_insert(heap *h, int (*comp_func)(void*, void*), void *key);
+void heapify(heap *h, int (*comp_func)(process*, process*), int i);
+void build_heap(heap *h, int (*comp_func)(process*, process*));
+process* heap_extract_max(heap *h, int (*comp_func)(process*, process*));
+void heap_insert(heap *h, int (*comp_func)(process*, process*), process *key);
 
 // set heap size to 0 and NULL out all values
 void heap_init(heap *h)
@@ -36,7 +37,7 @@ void heap_init(heap *h)
 // Adapted from Introduction to Algorithms, 1990, 
 // by Cormen, Leiserson, Rivest, and Stein.
 // Chapter 7, Section 7.2
-void heapify(heap *h, int (*comp_func)(void*, void*), int i)
+void heapify(heap *h, int (*comp_func)(process*, process*), int i)
 {
     void *temp = NULL;
     int largest,
@@ -58,7 +59,7 @@ void heapify(heap *h, int (*comp_func)(void*, void*), int i)
 // Adapted from Introduction to Algorithms, 1990, 
 // by Cormen, Leiserson, Rivest, and Stein.
 // Chapter 7, Section 7.3
-void build_heap(heap *h, int (*comp_func)(void*, void*))
+void build_heap(heap *h, int (*comp_func)(process*, process*))
 {
     int i;
     for(i = h->size/2; i > 0; i--)
@@ -69,7 +70,7 @@ void build_heap(heap *h, int (*comp_func)(void*, void*))
 // Adapted from Introduction to Algorithms, 1990, 
 // by Cormen, Leiserson, Rivest, and Stein.
 // Chapter 7, Section 7.5
-void* heap_extract_max(heap *h, int (*comp_func)(void*, void*))
+process* heap_extract_max(heap *h, int (*comp_func)(process*, process*))
 {
     if(h->size < 1)
         return NULL;
@@ -84,7 +85,7 @@ void* heap_extract_max(heap *h, int (*comp_func)(void*, void*))
 // Adapted from Introduction to Algorithms, 1990, 
 // by Cormen, Leiserson, Rivest, and Stein.
 // Chapter 7, Section 7.5
-void heap_insert(heap *h, int (*comp_func)(void*, void*), void *key)
+void heap_insert(heap *h, int (*comp_func)(process*, process*), process *key)
 {
     int i = ++h->size;
     while(i > 1 && comp_func(h->a[PARENT(i)], key) < 0) {
