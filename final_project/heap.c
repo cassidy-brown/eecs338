@@ -1,13 +1,16 @@
-/* Heap data structure
- * Code copied from Jason Marcell: https://github.com/jasmarc/scheduler
- * I promise I only directly copied the heap, which looks like it's from a textbook anyway. The rest of his repo was only used for inspiration
+/* Cassidy Brown - cmb195
+ * OS Final Project - 12/12/16
+ *
+ * Heap data structure
+ * Code from Jason Marcell: https://github.com/jasmarc/scheduler
+ * Adapted to hold process structs specifically
  */
 
 #include <stdio.h>
 #include <stdarg.h>
 #include "process.c"
 
-#define MAX_HEAP_SIZE 1000
+#define MAX_HEAP_SIZE 20
 #define PARENT(i) (i/2)     // given the index of a heap node, the returns the parent index
 #define LEFT(i) (2*i)       // given the index of a heap node, the returns the left child index
 #define RIGHT(i) (2*i + 1)  // given the index of a heap node, the returns the right child index

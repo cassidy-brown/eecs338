@@ -1,5 +1,11 @@
-/* A random number generator from Ken Christensen at University of South Florida
- * http://www.csee.usf.edu/~kchriste/tools/genexp.c */
+/* Cassidy Brown - cmb195
+ * OS Final Project - 12/12/16
+ *
+ * A "random" number generator from Ken Christensen at University of South Florida
+ * http://www.csee.usf.edu/~kchriste/tools/genexp.c 
+ * 
+ * Adced populateArrayWithExpDist to put generated numbers in an array rather than in a file via main
+ */
 
 //===================================================== file = genexp.c =====
 //=  Program to generate exponentially distributed random variables         =

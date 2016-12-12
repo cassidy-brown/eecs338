@@ -1,3 +1,9 @@
+/* Cassidy Brown - cmb195
+ * OS Final Project - 12/12/16
+ *
+ * This file holds the process struct and some other global definitions
+ */
+
 #ifndef PROCESS_FLAG
 #define PROCESS_FLAG
 
@@ -9,8 +15,7 @@
 #define TRUE (!FALSE)
 #endif
 
-#define BURSTS_PER_PROCESS 11		// For the sake of simplicity, we'll make them all the same. For now...
-									// I don't want to deal with full-on pointers, so I'm going to use arrays as a crutch
+#define BURSTS_PER_PROCESS 11		// For the sake of simplicity, we'll make them all the same.
 #define NUM_PROCESSES 10
 
 /* This struct represents a process that needs to be executed
@@ -24,11 +29,13 @@ typedef struct {
 	int bursts[BURSTS_PER_PROCESS];		// array representing burst lengths. Even indices (starting at 0) are CPU bursts, odd are IO
 	int nextBurst;						// next number to access in the array
 	int startWaitTime;					// when the process most recently entered the cpuHeap
+	int responseTime;					// how long the process spent in cpuHeap the first time
 	int netWaitTime;					// how long the process spent in cpuHeap total
 	int netCpuTime;						// sum of bursts' even indices 		
 	int netIoTime;						// sun of bursts' odd indices
 } process;
 
 typedef int (*CompFcn)(process*, process*);	
+
 
 #endif

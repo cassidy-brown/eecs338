@@ -1,7 +1,12 @@
-/* The scheduling method in use determines how tasks are prioritized.
+/* Cassidy Brown - cmb195
+ * OS Final Project - 12/12/16
+ * 
+ *The scheduling method in use determines how tasks are prioritized.
  * The prioritization is implemented through how processes are sorted in the heap.
  * Therefore, each scheduling method boils down to a comparison function for the heaps.
  * And here we are.
+ *
+ * Comparison function: + -> a is "larger", has higher priority
  */
 
 #include "process.c"
@@ -17,7 +22,7 @@
  */
 int compareFCFS(process* a, process* b)
 {
-	return a->startWaitTime - b->startWaitTime;
+	return b->startWaitTime - a->startWaitTime;
 }
 
 /* Shortest Job First 
@@ -25,7 +30,7 @@ int compareFCFS(process* a, process* b)
  */
 int compareSJF(process* a, process* b)
 {
-	return a->bursts[a->nextBurst] - b->bursts[b->nextBurst];
+	return b->bursts[b->nextBurst] - a->bursts[a->nextBurst];
 }	
 
 /* Shortest Remaining Time First
@@ -33,28 +38,27 @@ int compareSJF(process* a, process* b)
  */
 int compareSRTF(process* a, process* b)
 {
-	return a->bursts[a->nextBurst] - b->bursts[b->nextBurst];
+	return b->bursts[b->nextBurst] - a->bursts[a->nextBurst];
 }
 
 /* Round Robin
- * Also involves preempting
- * It also may not involve a heap
+ * Preemptive (handled elsewhere). We want to go in the same order each time, like first come, first serve
  */
 int compareRR(process* a, process* b)
 {
-	return 0;
+	return b->startWaitTime - a->startWaitTime;
 }
 
-
+// for heap, via runSimulation
 CompFcn getComparisonFunction(int schedule){
 	switch(schedule){
-		case 1:
+		case FCFS:
 			return compareFCFS;
-		case 2:
+		case SJF:
 			return compareSJF;
-		case 3:
+		case SRTF:
 			return compareSRTF;
-		case 4:
+		case RR:
 			return compareRR;
 	}
 
